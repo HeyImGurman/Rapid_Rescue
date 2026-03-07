@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RapidRescue | Route</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+<!-- NAVBAR -->
+
+<header>
+
+<div class="logo">
+RapidRescue 🚑
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="route.html">Route</a>
+<a href="hospitals.html">Hospitals</a>
+<a href="dashboard.html">Dashboard</a>
+
+</nav>
+
+</header>
+
+
+<!-- MAIN ROUTE SECTION -->
+
+<main class="route-container">
+
+
+<!-- LEFT SIDE : MAP -->
+
+<section class="map-section">
+
+<div id="map">
+
+<!-- Map will be rendered here -->
+
+</div>
+
+</section>
+
+
+
+<!-- RIGHT SIDE : ROUTE DETAILS -->
+
+<section class="route-info">
+
+
+<h2>Ambulance Route</h2>
+
+
+<div class="info-card">
+
+<h3>Assigned Hospital</h3>
+<p id="hospital-name">Loading...</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>Distance</h3>
+<p id="distance">-- km</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>Estimated Arrival Time</h3>
+<p id="eta">-- minutes</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>Traffic Status</h3>
+<p id="traffic">Analyzing...</p>
+
+</div>
+
+
+<button id="start-navigation">
+Start Navigation
+</button>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>RapidRescue AI • Emergency Routing System</p>
+
+</footer>
+
+
+
+<script src="js/map.js"></script>
+
+</body>
+
+</html>
