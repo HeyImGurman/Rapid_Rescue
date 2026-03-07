@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>RapidRescue AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapid Rescue</title>
+
 <link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<header>
-<h1>RapidRescue AI 🚑</h1>
+<!-- NAVBAR -->
+
 <nav class="navbar">
 
-    <div class="logo">
-        Rapid Rescue
-    </div>
+<div class="logo">
+Rapid <span>Rescue</span>
+</div>
 
-    <ul class="nav-links">
-
-        <li><a href="index.html">Home</a></li>
-
-        <li><a href="route.html">Find Route</a></li>
-
-        <li><a href="#">Dashboard</a></li>
-
-        <li><a href="#">About</a></li>
-
-    </ul>
+<ul class="nav-links">
+<li><a href="#">Home</a></li>
+<li><a href="#">Hospitals</a></li>
+<li><a href="#">Services</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#" class="nav-btn">Emergency</a></li>
+</ul>
 
 </nav>
-</header>
+
+
+<!-- HERO SECTION -->
 
 <section class="hero">
 
@@ -43,11 +43,12 @@ Save time.<br>
 Healthcare online
 </h1>
 
-<p class="hero-desc">
+<p>
 Find the fastest hospital and route instantly using intelligent ambulance routing.
 </p>
 
-<div class="hero-input">
+
+<div class="search-box">
 
 <input type="text" placeholder="Enter emergency location">
 
@@ -55,7 +56,8 @@ Find the fastest hospital and route instantly using intelligent ambulance routin
 
 </div>
 
-<div class="hero-stats">
+
+<div class="stats">
 
 <div class="stat">
 <h2>4.9★</h2>
@@ -79,34 +81,25 @@ Find the fastest hospital and route instantly using intelligent ambulance routin
 
 <div class="hero-right">
 
-<div class="doctor-card">
-
+<div class="card card1">
 <img src="images/doctor.jpg">
-
-<div class="doctor-info">
-<h3>Emergency Specialist</h3>
-<p>Online</p>
 </div>
 
+<div class="card card2">
+<img src="images/emergency.jpg">
 </div>
 
-<div class="floating-card card1">
-<p>Traffic Analysis</p>
+<div class="card card3">
+<img src="images/hospital.jpg">
 </div>
 
-<div class="floating-card card2">
-<p>Hospital Availability</p>
-</div>
-
-<div class="floating-card card3">
-<p>AI Route Prediction</p>
+<div class="card card4">
+<img src="images/staff.jpg">
 </div>
 
 </div>
 
 </section>
-
-<script src="js/main.js"></script>
 
 </body>
 </html>
