@@ -38,7 +38,7 @@ fetchHospitals(lat,lon);
 
 function fetchHospitals(lat,lon){
 
-let radius = 20000;
+let radius = 10000;
 
 let query = `
 [out:json];
