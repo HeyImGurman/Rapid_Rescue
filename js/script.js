@@ -173,3 +173,49 @@ function renderHospitalList(sortedHospitals, userLat, userLon) {
         listContainer.insertAdjacentHTML('beforeend', htmlString);
     });
 }
+
+// --- LOCATION DETECTION LOGIC ---
+
+// 1. Check if the URL has coordinates passed from the home page search
+const urlParams = new URLSearchParams(window.location.search);
+const urlLat = urlParams.get('lat');
+const urlLon = urlParams.get('lon');
+
+if (urlLat && urlLon) {
+    // A. Use the searched location
+    let lat = parseFloat(urlLat);
+    let lon = parseFloat(urlLon);
+
+    map.setView([lat, lon], 13);
+    
+    L.marker([lat, lon])
+        .addTo(map)
+        .bindPopup("Searched Location")
+        .openPopup();
+
+    fetchHospitals(lat, lon);
+
+} else {
+    // B. Fall back to live GPS location if accessed directly
+    navigator.geolocation.getCurrentPosition(function (position) {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+
+        map.setView([lat, lon], 13);
+
+        L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup("Your Current Location")
+            .openPopup();
+
+        fetchHospitals(lat, lon);
+    }, function(error) {
+        console.error("Geolocation error:", error);
+        
+        const listContainer = document.getElementById('hospital-list');
+        if (listContainer) {
+            listContainer.innerHTML = "<p>Please allow location access or search for an address on the home page.</p>";
+        }
+        alert("Please allow location access to find nearby hospitals.");
+    });
+}
