@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,87 +11,36 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
 
-/* DASHBOARD LAYOUT */
+/* DASHBOARD PAGE */
 
-.dashboard{
-display:grid;
-grid-template-columns:250px 1fr;
-min-height:100vh;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-background:#0a66ff;
-color:white;
-padding:30px 20px;
-}
-
-.sidebar h2{
-margin-bottom:40px;
-}
-
-.sidebar ul{
-list-style:none;
-}
-
-.sidebar li{
-margin:20px 0;
-}
-
-.sidebar a{
-color:white;
-text-decoration:none;
-font-size:16px;
-transition:0.3s;
-}
-
-.sidebar a:hover{
-opacity:0.8;
-}
-
-/* MAIN CONTENT */
-
-.main-content{
+.dashboard-container{
 padding:40px;
 background:#f4f8fb;
+min-height:100vh;
+font-family:'Poppins',sans-serif;
 }
 
-/* TOP BAR */
+/* PAGE TITLE */
 
-.topbar{
+.dashboard-header{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:30px;
 }
 
-.topbar h1{
+.dashboard-header h1{
 font-size:28px;
-}
-
-.user-profile{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.user-avatar{
-width:40px;
-height:40px;
-background:#ddd;
-border-radius:50%;
+color:#0a66ff;
 }
 
 /* STAT CARDS */
 
 .stats-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 margin-bottom:40px;
 }
@@ -102,16 +52,21 @@ border-radius:12px;
 box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
-.stat-card h3{
+.stat-card h2{
+font-size:28px;
 color:#0a66ff;
 margin-bottom:5px;
 }
 
+.stat-card p{
+color:#555;
+}
+
 /* HOSPITAL TABLE */
 
-.hospital-table{
+.hospital-section{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:12px;
 box-shadow:0 5px 15px rgba(0,0,0,0.05);
 margin-bottom:40px;
@@ -120,6 +75,7 @@ margin-bottom:40px;
 table{
 width:100%;
 border-collapse:collapse;
+margin-top:15px;
 }
 
 table th, table td{
@@ -132,70 +88,69 @@ border-bottom:1px solid #eee;
 padding:5px 10px;
 border-radius:6px;
 font-size:12px;
+font-weight:500;
 }
 
 .available{
-background:#e6f7ee;
+background:#e8f9ef;
 color:#27ae60;
 }
 
-.busy{
-background:#fdecea;
+.full{
+background:#fdeaea;
 color:#e74c3c;
 }
 
 /* MAP */
 
-.map-container{
+.map-section{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:12px;
 box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
 #map{
 height:400px;
+margin-top:15px;
 border-radius:10px;
-margin-top:10px;
+background:#ddd;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="dashboard">
+<!-- NAVBAR (COMMON TO ALL PAGES) -->
 
-<!-- SIDEBAR -->
+<nav class="navbar">
 
-<div class="sidebar">
+<div class="logo">
+    <svg class="logo-arrows" width="40" height="20" viewBox="0 0 40 20">
+        <polygon class="arrow arrow1" points="0,10 10,2 10,18"/>
+        <polygon class="arrow arrow2" points="12,10 22,2 22,18"/>
+    </svg>
+    <span class="logo-text">Rapid Rescue</span>
+</div>
 
-<h2> Rapid Rescue</h2>
-
-<ul>
-<li><a href="#">Dashboard</a></li>
-<li><a href="#">Nearby Hospitals</a></li>
-<li><a href="#">Live Map</a></li>
-<li><a href="#">Emergency Routes</a></li>
-<li><a href="#">Bed Availability</a></li>
-<li><a href="#">Settings</a></li>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="hospitals.html">Hospitals</a></li>
+<li><a href="dashboard.html">Dashboard</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#" class="nav-btn">Sign Up</a></li>
 </ul>
 
-</div>
+</nav>
 
-<!-- MAIN CONTENT -->
+<!-- DASHBOARD CONTENT -->
 
-<div class="main-content">
+<div class="dashboard-container">
 
-<div class="topbar">
-
+<div class="dashboard-header">
 <h1>Emergency Dashboard</h1>
-
-<div class="user-profile">
-<div class="user-avatar"></div>
-<span>User</span>
-</div>
-
 </div>
 
 <!-- STATS -->
@@ -203,22 +158,22 @@ margin-top:10px;
 <div class="stats-grid">
 
 <div class="stat-card">
-<h3>12</h3>
+<h2>12</h2>
 <p>Nearby Hospitals</p>
 </div>
 
 <div class="stat-card">
-<h3>7</h3>
-<p>Beds Available</p>
+<h2>7</h2>
+<p>Available Beds</p>
 </div>
 
 <div class="stat-card">
-<h3>8 min</h3>
+<h2>8 min</h2>
 <p>Fastest Route</p>
 </div>
 
 <div class="stat-card">
-<h3>Low</h3>
+<h2>Low</h2>
 <p>Traffic Level</p>
 </div>
 
@@ -226,9 +181,9 @@ margin-top:10px;
 
 <!-- HOSPITAL TABLE -->
 
-<div class="hospital-table">
+<div class="hospital-section">
 
-<h2>Best Hospitals Nearby</h2>
+<h2>Recommended Hospitals</h2>
 
 <table>
 
@@ -250,7 +205,7 @@ margin-top:10px;
 <td>Green Valley Medical</td>
 <td>3.8 km</td>
 <td>0</td>
-<td><span class="status busy">Full</span></td>
+<td><span class="status full">Full</span></td>
 </tr>
 
 <tr>
@@ -260,32 +215,21 @@ margin-top:10px;
 <td><span class="status available">Available</span></td>
 </tr>
 
-<tr>
-<td>Sunrise Hospital</td>
-<td>5.6 km</td>
-<td>1</td>
-<td><span class="status available">Available</span></td>
-</tr>
-
 </table>
 
 </div>
 
 <!-- MAP -->
 
-<div class="map-container">
+<div class="map-section">
 
-<h2>Nearby Hospitals Map</h2>
+<h2>Hospital Locations</h2>
 
 <div id="map"></div>
 
 </div>
 
 </div>
-
-</div>
-
-<script src="js/map.js"></script>
 
 </body>
 </html>
