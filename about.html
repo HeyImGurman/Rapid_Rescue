@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Rapid Rescue</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <svg class="logo-icon" width="45" height="24" viewBox="0 0 45 24">
+                <path class="pulse-bg" fill="none" stroke="#e1e8ed" stroke-width="3" d="M2 12 L12 12 L16 4 L22 20 L27 12 L43 12" />
+                <path class="pulse-active" fill="none" stroke="#0a66ff" stroke-width="3" d="M2 12 L12 12 L16 4 L22 20 L27 12 L43 12" />
+                <circle class="pulse-dot" cx="43" cy="12" r="2.5" fill="#0a66ff" />
+            </svg>
+            <span class="logo-text">Rapid<span class="logo-highlight" style="color: #0a66ff; font-weight: 400;">Rescue</span></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="hospitals.html">Hospitals</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="about.html">About</a></li>
+            
+            <li id="nav-signin-item">
+                <a href="signin.html" class="nav-btn">Sign In</a>
+            </li>
+            
+            <li id="nav-logout-item" style="display: none; align-items: center;">
+                <button id="nav-logout-btn" style="padding: 8px 20px; border: 1px solid #e74c3c; border-radius: 6px; background: transparent; color: #e74c3c; font-family: 'Poppins', sans-serif; font-weight: 500; cursor: pointer; transition: 0.3s;">Log Out</button>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="about-section">
+        <div class="about-header">
+            <h1>Meet the Team</h1>
+            <p>The developers behind Rapid Rescue's intelligent emergency routing system.</p>
+        </div>
+
+        <div class="team-grid">
+            
+            <div class="team-card">
+                <img src="https://ui-avatars.com/api/?name=Team+Member+1&background=0a66ff&color=fff&size=120" alt="Team Member" class="team-img">
+                <h3>Tanisi Pandey</h3>
+                <h4>Frontend Developer</h4>
+                <p>Focused on crafting a seamless, responsive user interface and integrating the live interactive mapping systems to ensure a smooth user experience during high-stress situations.</p>
+                <div class="social-links">
+                    <a href="https://github.com/HeyImtanisipandey" target="_blank" class="social-btn github-btn">💻 GitHub</a>
+                    <a href="https://www.linkedin.com/in/tanisi-pandey-b057a2385/" target="_blank" class="social-btn linkedin-btn">🔗 LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <img src="https://ui-avatars.com/api/?name=Team+Member+2&background=0a66ff&color=fff&size=120" alt="Team Member" class="team-img">
+                <h3>Nischal Krishna</h3>
+                <h4>Backend & APIs</h4>
+                <p>Architected the routing logic and integrated the OpenRouteService and Overpass APIs. Designed the concurrent data-fetching system to minimize route calculation times.</p>
+                <div class="social-links">
+                    <a href="https://github.com/nischal-krishna" target="_blank" class="social-btn github-btn">💻 GitHub</a>
+                    <a href="https://www.linkedin.com/in/nischal-krishna-75a502385/" target="_blank" class="social-btn linkedin-btn">🔗 LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <img src="https://ui-avatars.com/api/?name=Team+Member+3&background=0a66ff&color=fff&size=120" alt="Team Member" class="team-img">
+                <h3>Gurmanpreet Singh</h3>
+                <h4>Database Architect</h4>
+                <p>Configured the secure Google Firebase authentication and Cloud Firestore database, ensuring that sensitive user medical profiles are securely stored and instantly retrievable.</p>
+                <div class="social-links">
+                    <a href="https://github.com/HeyImGurman" target="_blank" class="social-btn github-btn">💻 GitHub</a>
+                    <a href="https://www.linkedin.com/in/gurmanpreet-singh-481a91332/" target="_blank" class="social-btn linkedin-btn">🔗 LinkedIn</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script type="module" src="js/auth.js"></script>
+
+</body>
+</html>

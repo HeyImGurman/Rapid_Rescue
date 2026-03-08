@@ -124,7 +124,7 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="hospitals.html">Hospitals</a></li>
     <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="#">About</a></li>
+    <li><a href="about.html">About</a></li>
     
     <li id="nav-signin-item">
         <a href="signin.html" class="nav-btn">Sign In</a>
@@ -190,6 +190,43 @@
             </table>
         </div>
 
+        <div class="medical-profile-section">
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Your Medical Profile</h2>
+                <button id="edit-med-btn" class="nav-btn">Edit Profile</button>
+            </div>
+
+            <div id="med-display" class="med-card">
+                <p><strong>Blood Type:</strong> <span id="disp-blood">Not set</span></p>
+                <p><strong>Allergies:</strong> <span id="disp-allergies">Not set</span></p>
+                <p><strong>Chronic Conditions:</strong> <span id="disp-conditions">Not set</span></p>
+                <p><strong>Emergency Contact:</strong> <span id="disp-contact">Not set</span></p>
+            </div>
+
+            <form id="med-form" class="med-card" style="display: none;">
+                <div class="form-group">
+                    <label>Blood Type</label>
+                    <input type="text" id="input-blood" placeholder="e.g., O Positive">
+                </div>
+                <div class="form-group">
+                    <label>Known Allergies</label>
+                    <input type="text" id="input-allergies" placeholder="e.g., Peanuts, Penicillin">
+                </div>
+                <div class="form-group">
+                    <label>Chronic Conditions</label>
+                    <input type="text" id="input-conditions" placeholder="e.g., Asthma, Type 1 Diabetes">
+                </div>
+                <div class="form-group">
+                    <label>Emergency Contact</label>
+                    <input type="text" id="input-contact" placeholder="e.g., Mom: 555-0198">
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="submit" id="save-med-btn" class="login-submit-btn" style="margin-top: 0;">Save Information</button>
+                    <button type="button" id="cancel-med-btn" class="nav-btn" style="margin-top: 0; background: #f4f8fb; color: #333; border: 1px solid #ccc;">Cancel</button>
+                </div>
+            </form>
+        </div>
+
         <div class="map-section">
             <h2>Hospital Locations</h2>
             <div id="map"></div>
@@ -249,5 +286,113 @@
     <script src="js/script.js"></script>
 
     <script type="module" src="js/auth.js"></script>
+
+    <script type="module">
+        // 1. We added getApps and getApp here!
+        import { getApps, getApp, initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Your Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCERz5-2upWt44cfaoU5rXgFBcQWDOSf1w",
+            authDomain: "rapid-rescue-2d536.firebaseapp.com",
+            projectId: "rapid-rescue-2d536",
+            storageBucket: "rapid-rescue-2d536.firebasestorage.app",
+            messagingSenderId: "929402119690",
+            appId: "1:929402119690:web:b1a38a49d62919293e21f3"
+        };
+
+        // THE FIX: Check if Firebase is already running from auth.js. If yes, use it. If no, start it.
+        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+        
+        const auth = getAuth(app);
+        const db = getFirestore(app); // Initialize Database
+
+        let currentUserUID = null;
+
+        // UI Elements
+        const displayDiv = document.getElementById('med-display');
+        const formDiv = document.getElementById('med-form');
+        const editBtn = document.getElementById('edit-med-btn');
+        const cancelBtn = document.getElementById('cancel-med-btn');
+        const saveBtn = document.getElementById('save-med-btn');
+
+        // Toggle Edit Mode ON
+        editBtn.addEventListener('click', () => {
+            displayDiv.style.display = 'none';
+            formDiv.style.display = 'block';
+            editBtn.style.display = 'none';
+        });
+
+        // Toggle Edit Mode OFF
+        cancelBtn.addEventListener('click', () => {
+            formDiv.style.display = 'none';
+            displayDiv.style.display = 'block';
+            editBtn.style.display = 'block';
+        });
+
+        // Fetch user data when they log in
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserUID = user.uid; 
+                
+                try {
+                    const docRef = doc(db, "medicalProfiles", currentUserUID);
+                    const docSnap = await getDoc(docRef);
+
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        
+                        document.getElementById('disp-blood').innerText = data.bloodType || "Not set";
+                        document.getElementById('disp-allergies').innerText = data.allergies || "Not set";
+                        document.getElementById('disp-conditions').innerText = data.conditions || "Not set";
+                        document.getElementById('disp-contact').innerText = data.contact || "Not set";
+
+                        document.getElementById('input-blood').value = data.bloodType || "";
+                        document.getElementById('input-allergies').value = data.allergies || "";
+                        document.getElementById('input-conditions').value = data.conditions || "";
+                        document.getElementById('input-contact').value = data.contact || "";
+                    }
+                } catch (error) {
+                    console.error("Could not load profile:", error);
+                }
+            }
+        });
+
+        // Save Data to Firestore
+        formDiv.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUserUID) return;
+
+            saveBtn.innerText = "Saving...";
+
+            const medicalData = {
+                bloodType: document.getElementById('input-blood').value,
+                allergies: document.getElementById('input-allergies').value,
+                conditions: document.getElementById('input-conditions').value,
+                contact: document.getElementById('input-contact').value
+            };
+
+            try {
+                await setDoc(doc(db, "medicalProfiles", currentUserUID), medicalData);
+                
+                document.getElementById('disp-blood').innerText = medicalData.bloodType || "Not set";
+                document.getElementById('disp-allergies').innerText = medicalData.allergies || "Not set";
+                document.getElementById('disp-conditions').innerText = medicalData.conditions || "Not set";
+                document.getElementById('disp-contact').innerText = medicalData.contact || "Not set";
+
+                formDiv.style.display = 'none';
+                displayDiv.style.display = 'block';
+                editBtn.style.display = 'block';
+
+            } catch (error) {
+                console.error("Error saving medical profile: ", error);
+                alert("Could not save profile. Please ensure Firestore is enabled in Test Mode in your console.");
+            } finally {
+                saveBtn.innerText = "Save Information";
+            }
+        });
+    </script>
 </body>
 </html>
