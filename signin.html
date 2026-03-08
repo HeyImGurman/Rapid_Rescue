@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Rapid Rescue</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <svg class="logo-icon" width="45" height="24" viewBox="0 0 45 24">
+                <path class="pulse-bg" d="M2 12 L12 12 L16 4 L22 20 L27 12 L43 12" />
+                <path class="pulse-active" d="M2 12 L12 12 L16 4 L22 20 L27 12 L43 12" />
+                <circle class="pulse-dot" cx="43" cy="12" r="2.5" />
+            </svg>
+            <span class="logo-text">Rapid<span class="logo-highlight">Rescue</span></span>
+        </a>
+    </nav>
+
+    <section class="login-section">
+        <div class="login-card">
+            
+            <h2 id="auth-title">Welcome Back</h2>
+            <p id="auth-subtitle">Enter your credentials to access the dashboard.</p>
+
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="e.g. medic@rapidrescue.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                </div>
+
+                <div id="error-message" style="color: #e74c3c; font-size: 14px; margin-bottom: 10px; display: none;"></div>
+
+                <button type="submit" id="auth-btn" class="login-submit-btn">Sign In</button>
+            </form>
+
+            <div class="signup-link">
+                <span id="toggle-text">Don't have an account?</span> 
+                <a href="#" id="toggle-auth-mode">Sign Up</a>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        // 1. Import Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyCERz5-2upWt44cfaoU5rXgFBcQWDOSf1w",
+        authDomain: "rapid-rescue-2d536.firebaseapp.com",
+        projectId: "rapid-rescue-2d536",
+        storageBucket: "rapid-rescue-2d536.firebasestorage.app",
+        messagingSenderId: "929402119690",
+        appId: "1:929402119690:web:b1a38a49d62919293e21f3",
+    measurementId: "G-XGJMTT965H"
+};
+
+        // 3. Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // UI Elements
+        let isLoginMode = true;
+        const form = document.getElementById('auth-form');
+        const title = document.getElementById('auth-title');
+        const subtitle = document.getElementById('auth-subtitle');
+        const authBtn = document.getElementById('auth-btn');
+        const toggleText = document.getElementById('toggle-text');
+        const toggleBtn = document.getElementById('toggle-auth-mode');
+        const errorMsg = document.getElementById('error-message');
+
+        // Toggle between Sign In and Sign Up
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            errorMsg.style.display = 'none'; // Clear errors on toggle
+
+            if (isLoginMode) {
+                title.innerText = "Welcome Back";
+                subtitle.innerText = "Enter your credentials to access the dashboard.";
+                authBtn.innerText = "Sign In";
+                toggleText.innerText = "Don't have an account?";
+                toggleBtn.innerText = "Sign Up";
+            } else {
+                title.innerText = "Create Account";
+                subtitle.innerText = "Register a new responder account.";
+                authBtn.innerText = "Register Now";
+                toggleText.innerText = "Already have an account?";
+                toggleBtn.innerText = "Sign In";
+            }
+        });
+
+        // Handle Form Submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // UI Feedback
+            authBtn.innerText = "Processing...";
+            authBtn.style.opacity = "0.8";
+            authBtn.style.pointerEvents = "none";
+            errorMsg.style.display = "none";
+
+            try {
+                if (isLoginMode) {
+                    // SIGN IN LOGIC
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    // SIGN UP LOGIC
+                    await createUserWithEmailAndPassword(auth, email, password);
+                }
+                
+                // If successful, redirect to dashboard
+                window.location.href = 'dashboard.html';
+
+            } catch (error) {
+                // Handle Errors (Wrong password, email already exists, etc.)
+                console.error("Auth Error:", error.message);
+                
+                // Format error message for the user
+                let friendlyError = "Authentication failed. Please try again.";
+                if (error.code === 'auth/email-already-in-use') friendlyError = "This email is already registered.";
+                if (error.code === 'auth/invalid-credential') friendlyError = "Invalid email or password.";
+                if (error.code === 'auth/weak-password') friendlyError = "Password should be at least 6 characters.";
+                
+                errorMsg.innerText = friendlyError;
+                errorMsg.style.display = "block";
+
+                // Reset button
+                authBtn.innerText = isLoginMode ? "Sign In" : "Register Now";
+                authBtn.style.opacity = "1";
+                authBtn.style.pointerEvents = "auto";
+            }
+        });
+    </script>
+</body>
+</html>

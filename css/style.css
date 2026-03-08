@@ -31,10 +31,99 @@ top:0;
 z-index:100;
 }
 
-.logo{
-font-size:22px;
-font-weight:600;
-color:#0a66ff;
+/* =========================
+   LOGO STYLES & ANIMATIONS
+========================= */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Slight scale up when the user hovers over the logo */
+.logo:hover {
+    transform: scale(1.02);
+}
+
+/* Typography contrast */
+.logo-text {
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Bold "Rapid" */
+    color: #333; /* Dark gray */
+    letter-spacing: -0.5px;
+}
+
+.logo-highlight {
+    font-weight: 400; /* Regular "Rescue" */
+    color: #0a66ff; /* Theme blue */
+}
+
+/* --- SVG Icon Animations --- */
+.logo-icon {
+    overflow: visible;
+}
+
+.pulse-bg {
+    fill: none;
+    stroke: #e1e8ed; /* Light gray background path */
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pulse-active {
+    fill: none;
+    stroke: #0a66ff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    
+    /* This creates the "drawing" effect */
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: heartbeat 2.5s ease-in-out infinite;
+}
+
+.pulse-dot {
+    fill: #0a66ff;
+    transform-origin: 43px 12px;
+    animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+/* --- Keyframes --- */
+@keyframes heartbeat {
+    0% {
+        stroke-dashoffset: 100;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        stroke-dashoffset: -10;
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: -10;
+        opacity: 0;
+    }
+}
+
+@keyframes dotPulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 0.8; 
+    }
+    50% { 
+        transform: scale(1.6); 
+        opacity: 1; 
+        fill: #0052cc; 
+        filter: drop-shadow(0 0 5px rgba(10, 102, 255, 0.6)); 
+    }
 }
 
 .nav-links{
@@ -270,8 +359,11 @@ RESPONSIVE DESIGN
 padding:20px 30px;
 }
 
-.nav-links{
-gap:20px;
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    align-items: center; 
 }
 
 .hero{
@@ -479,3 +571,96 @@ justify-content:center;
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/* =========================
+   SIGN IN PAGE
+========================= */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Centers vertically below navbar */
+    background: #f4f8fb;
+    padding: 40px 20px;
+}
+
+.login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-card h2 {
+    color: #0a66ff;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.login-card p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.3s;
+}
+
+/* Glowing border when typing */
+.form-group input:focus {
+    outline: none;
+    border-color: #0a66ff;
+    box-shadow: 0 0 0 3px rgba(10, 102, 255, 0.1);
+}
+
+.login-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #0a66ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.login-submit-btn:hover {
+    background: #0052cc;
+}
+
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.signup-link a {
+    color: #0a66ff;
+    text-decoration: none;
+    font-weight: 600;
+}   
