@@ -8,25 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // API KEY
 const ORS_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjZkZDIwMTEyYzJjZjQ2YThhNDExNmY3MTAzNTM4YzZjIiwiaCI6Im11cm11cjY0In0=";
 
-// Get User Location
-navigator.geolocation.getCurrentPosition(function (position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
 
-    map.setView([lat, lon], 13);
-
-    // User marker
-    L.marker([lat, lon])
-        .addTo(map)
-        .bindPopup("You are here")
-        .openPopup();
-
-    // Search hospitals
-    fetchHospitals(lat, lon);
-}, function(error) {
-    console.error("Geolocation error:", error);
-    alert("Please allow location access to find nearby hospitals.");
-});
 
 async function fetchHospitals(lat, lon) {
     let radius = 10000;

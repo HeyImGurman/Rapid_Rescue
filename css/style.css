@@ -499,7 +499,691 @@ body {
     /* Add this inside your existing max-width: 600px block */
     .about-section { padding: 40px 20px; }
     .team-card { padding: 30px 20px; }
+}/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
+
+body {
+    background: #f4f8fb;
+    overflow-x: hidden;
+    color: #333;
+}
+
+/* =========================
+   NAVBAR & LOGO
+========================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Softer, wider shadow */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: -0.5px;
+}
+
+.logo-highlight {
+    font-weight: 400;
+    color: #0a66ff;
+}
+
+/* --- Navigation Links --- */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    align-items: center; 
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555; /* Slightly softer text for links */
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #0a66ff;
+}
+
+/* Log out button alignment */
+#nav-logout-btn {
+    margin: 0;
+}
+
+.nav-btn, .login-btn {
+    padding: 10px 24px; /* Slightly thicker buttons */
+    border: 1px solid #0a66ff;
+    border-radius: 50px; /* Fully rounded corners */
+    background: white;
+    color: #0a66ff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-btn:hover, .login-btn:hover {
+    background: #0a66ff;
+    color: white;
+    transform: translateY(-2px); /* Button lifts up on hover */
+    box-shadow: 0 6px 15px rgba(10, 102, 255, 0.2); /* Glowing blue shadow */
+}
+
+#nav-logout-btn:hover {
+    background: #e74c3c !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.2);
+}
+
+/* --- SVG Logo Animations --- */
+.logo-icon { overflow: visible; }
+
+.pulse-bg {
+    fill: none;
+    stroke: #e1e8ed;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pulse-active {
+    fill: none;
+    stroke: #0a66ff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: heartbeat 2.5s ease-in-out infinite;
+}
+
+.pulse-dot {
+    fill: #0a66ff;
+    transform-origin: 43px 12px;
+    animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0% { stroke-dashoffset: 100; opacity: 0; }
+    15% { opacity: 1; }
+    85% { stroke-dashoffset: -10; opacity: 1; }
+    100% { stroke-dashoffset: -10; opacity: 0; }
+}
+
+@keyframes dotPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { 
+        transform: scale(1.6); 
+        opacity: 1; 
+        fill: #0052cc; 
+        filter: drop-shadow(0 0 5px rgba(10, 102, 255, 0.6)); 
+    }
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 80px; /* A bit more breathing room */
+    position: relative;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.hero-left {
+    max-width: 520px;
+}
+
+.hero-left h1 {
+    font-size: 54px; /* Slightly larger heading */
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -1px; /* Tighter lettering for modern feel */
+    color: #1a1a1a;
+}
+
+.hero-left p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* --- Integrated Pill Search Box --- */
+.search-box {
+    display: inline-flex;
+    align-items: center;
+    background: white;
+    padding: 8px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border: 1px solid #e1e8ed;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-box:focus-within {
+    box-shadow: 0 15px 35px rgba(10, 102, 255, 0.15);
+    border-color: #0a66ff;
+}
+
+.search-box input {
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    width: 280px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-box button {
+    padding: 14px 28px;
+    background: #0a66ff;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.search-box button:hover {
+    background: #0052cc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(10, 102, 255, 0.3);
+}
+
+.stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.stats h2 {
+    font-size: 28px;
+    color: #0a66ff;
+    font-weight: 700;
+}
+
+.stats p {
+    font-size: 14px;
+    color: #777;
+    font-weight: 500;
+}
+
+/* =========================
+   HERO RIGHT / FLOATING CARDS
+========================= */
+.hero-right {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    height: 380px;
+}
+
+/* Continuous Floating Animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+.card {
+    position: absolute;
+    width: 230px;
+    height: 150px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    padding: 10px;
+    overflow: hidden;
+    animation: float 6s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover scales the card up and pauses the float */
+.card:hover {
+    transform: translateY(-10px) scale(1.05) !important;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    animation-play-state: paused;
+    z-index: 10;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* Staggered animation delays so they don't move identically */
+.card1 { top: 0; right: 0; animation-delay: 0s; }
+.card2 { bottom: 0; left: 0; animation-delay: 1.5s; }
+.card3 { top: 20px; left: 0; animation-delay: 3s; }
+.card4 { bottom: 20px; right: 0; animation-delay: 4.5s; }
+
+/* =========================
+   HOSPITAL LIST & CARDS
+========================= */
+.hospitals, .hospital-list-section {
+    padding: 80px;
+    background: white;
+}
+
+.hospital-list-section {
+    background: #f4f8fb;
+    padding-top: 40px;
+}
+
+.section-title, .list-container h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.list-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.hospital-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.hospital-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f4f8;
+}
+
+.hospital-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+}
+
+.hospital-card h3 { color: #0a66ff; margin-bottom: 10px; font-size: 20px; }
+.hospital-card p { font-size: 14px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+
+/* Dynamic List System */
+.hospital-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hospital-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f4f8;
+}
+
+.hospital-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-color: #0a66ff;
+}
+
+.hospital-info h3 {
+    color: #1a1a1a;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.hospital-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.hospital-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #f4f8fb;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.hospital-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-navigate { background: #0a66ff; color: white; border: 1px solid #0a66ff; }
+.btn-navigate:hover { background: #0052cc; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(10, 102, 255, 0.3); }
+
+.btn-call { background: white; color: #28a745; border: 1px solid #28a745; }
+.btn-call:hover { background: #28a745; color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); }
+
+/* =========================
+   MAP & SPINNER
+========================= */
+.map-section {
+    padding: 80px;
+    background: #f4f8fb;
+    text-align: center;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+    border-radius: 16px;
+    margin-top: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 4px solid white;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    text-align: center;
+    color: #666;
+}
+
+.spinner {
+    width: 45px;
+    height: 45px;
+    border: 4px solid #e1e8ed;
+    border-top: 4px solid #0a66ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =========================
+   SIGN IN PAGE
+========================= */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background: #f4f8fb;
+    padding: 40px 20px;
+}
+
+.login-card {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.login-card h2 { color: #1a1a1a; margin-bottom: 10px; font-size: 28px; letter-spacing: -0.5px; }
+.login-card p { color: #666; margin-bottom: 30px; font-size: 15px; }
+
+.form-group { margin-bottom: 22px; text-align: left; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; color: #444; }
+.form-group input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #fafbfc;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0a66ff;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(10, 102, 255, 0.1);
+}
+
+.login-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #0a66ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-submit-btn:hover { background: #0052cc; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(10, 102, 255, 0.25); }
+
+.signup-link { margin-top: 25px; font-size: 14px; color: #666; }
+.signup-link a { color: #0a66ff; text-decoration: none; font-weight: 600; }
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    background: #1a1a1a; /* Darker footer looks more premium */
+    color: white;
+    text-align: center;
+    padding: 40px;
+    margin-top: 60px;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 900px) {
+    .navbar { padding: 20px 30px; }
+    .hero { flex-direction: column; text-align: center; padding: 60px 30px; }
+    .hero-left { max-width: 100%; }
+    .search-box { justify-content: center; flex-wrap: wrap; background: transparent; box-shadow: none; border: none; padding: 0; }
+    .search-box input { background: white; border: 1px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 10px; }
+    .search-box button { width: 100%; border-radius: 50px; }
+    .stats { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+    .hero-left h1 { font-size: 38px; }
+    .hero-left p { font-size: 16px; }
+    .stats { flex-direction: column; gap: 20px; }
+    .nav-links { display: none; }
+    .hospitals, .hospital-list-section, .map-section { padding: 60px 20px; }
+    .section-title { font-size: 28px; }
+    #map { height: 400px; }
+    .hospital-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .hospital-actions { width: 100%; display: flex; }
+    .btn { flex: 1; }
+    .about-section { padding: 40px 20px; }
+    .team-card { padding: 30px 20px; }
+}
+
+/* =========================
+   MEDICAL PROFILE CARD
+========================= */
+.medical-profile-section {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    margin-bottom: 40px;
+    border: 1px solid #f0f4f8;
+}
+
+.med-card p {
+    margin-bottom: 14px;
+    color: #555;
+    font-size: 15px;
+    border-bottom: 1px solid #f4f8fb;
+    padding-bottom: 12px;
+}
+
+.med-card p:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.med-card strong {
+    color: #1a1a1a;
+    min-width: 180px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+/* =========================
+   ABOUT US PAGE
+========================= */
+.about-section {
+    padding: 80px;
+    background: #f4f8fb;
+    min-height: calc(100vh - 80px);
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.about-header h1 {
+    font-size: 42px;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.about-header p {
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.team-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #f0f4f8;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    border-color: #0a66ff;
+}
+
+.team-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 4px solid #f9fbff;
+    box-shadow: 0 8px 20px rgba(10, 102, 255, 0.15);
+    object-fit: cover;
+}
+
+.team-card h3 { color: #1a1a1a; font-size: 22px; margin-bottom: 5px; font-weight: 700; }
+.team-card h4 { color: #0a66ff; font-size: 13px; font-weight: 600; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.team-card p { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; }
+
+.social-links { display: flex; gap: 12px; width: 100%; }
+.social-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.github-btn { background: #24292e; color: white; }
+.github-btn:hover { background: #1b1f23; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(36, 41, 46, 0.2); }
+
+.linkedin-btn { background: white; color: #0077b5; border-color: #0077b5; }
+.linkedin-btn:hover { background: #0077b5; color: white; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 119, 181, 0.2); }
 
 /* =========================
    MEDICAL PROFILE CARD
